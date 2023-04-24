@@ -1,0 +1,210 @@
+
+{% extends 'ts3_viewer/base.html'%}
+{% load static %}
+
+{%block nav%}
+<style>
+
+
+#movs {
+  
+  overflow: auto;
+  max-height: 75vh;
+  min-height: 75vh;
+  
+}
+#nicks{
+  width:20%;
+  overflow: auto;
+  max-height: 75vh;
+  min-height: 75vh;
+}
+
+#row_in{
+  color: #3cff00;
+  
+}
+#row_out{
+  color: #ff2600;
+}
+
+#body_cont{
+  display: flex;
+}
+
+
+
+#movs{
+  width: 80%;
+}
+
+#results_options{
+  display: flex;
+  width: 60%;
+  max-height: 5%;
+  margin: 2%;
+}
+
+#hstart{
+  display:flex;
+  width: 10%;
+}
+#hend{
+  display:flex;
+  width: 10%;
+}
+
+</style>
+
+
+<form method="get" action="" id="query">
+<div id="results_options">
+  <div>
+    <label for="cname">Channel:</label>
+    {%if consulting%}
+    <input type="text"  name="cname" value="{{room}}" id="channel">
+    {%else%}
+    <input type="text"  name="cname" id="channel" >
+    {%endif%}
+  </div>
+
+<div>
+  <label for="date_selected">Date:</label>
+  <select name="date_selected" id="date">
+  
+  
+  {%for date in dates_list%}
+  {%if date == sel_date%}
+  <option value="{{date}}" selected >{{date}}</option>
+  {%else%}
+  <option value="{{date}}" >{{date}}</option>
+  {%endif%}
+  {%endfor%}
+  
+</select>
+</div>
+
+<div >
+  <div><label for="hs" >Hour Start:</label></div>
+  <div id="hstart">
+    <select name="hs" id="hsq">
+    {%for h in hstart%}
+    {%if h == hssel%}
+    <option value="{{h}}" selected >{{h}}</option>
+    {%else%}
+    <option value="{{h}}" >{{h}}</option>
+    {%endif%}
+    {%endfor%}
+  </select>:</label>
+<select name="ms" id="msq">
+  {%for h in mstart%}
+  {%if h == mssel%}
+  <option value="{{h}}" selected>{{h}}</option>
+  {%else%}
+  <option value="{{h}}">{{h}}</option>
+  {%endif%}
+  {%endfor%}
+</select></div>
+
+</div>
+
+<div>
+  <label for="he">Hour End </label>
+  <div id="hend">
+  <select name="he" id="heq">
+    {%for h in hend%}
+    {%if h == hesel%}
+    <option value="{{h}}" selected>{{h}}</option>
+    {%elif h == '23' and consulting == 0%}
+    <option value="{{h}}" selected>{{h}}</option>
+    {%else%}
+    <option value="{{h}}">{{h}}</option>
+    {%endif%}
+    {%endfor%}
+  </select>
+  
+  <label for="me">:</label>
+  <select name="me" id="meq">
+    {%for h in mend%}
+    {%if h == mesel%}
+    <option value="{{h}}" selected>{{h}}</option>
+    {%elif h == '59' and consulting == 0%}
+    <option value="{{h}}" selected>{{h}}</option>
+    {%else%}
+    <option value="{{h}}">{{h}}</option>
+    {%endif%}
+    {%endfor%}
+  </select>
+</div>
+
+
+<div>
+  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+</div>
+
+
+
+
+</div>
+</form>
+
+
+
+{%endblock%}
+
+
+{%block body%}
+<div id="body_cont">
+<div id="movs">
+  {% if movements %}
+  <table class="table table-hover">
+  
+    <tbody>
+      {% for key, value in movements.items %}
+      {% if value == 1 %}
+      <tr id="row_in"><td>
+        {{key}}
+      </td></tr>
+      {% elif value == 0 %}
+      <tr id="row_out"><td>
+        {{key}}
+      </td></tr>
+      {% endif %}
+      {% endfor %}
+      
+    </tbody>
+  </table>
+  {% endif %}
+
+
+</div>
+<div id="nicks">
+  {% if users %}
+  <table class="table table-hover">
+  
+    <tbody>
+      {% for key, value in users.items %}
+      {% if value == 1 %}
+      <tr id="row_in"><td>
+        {{key}}
+      </td></tr>
+      {% elif value == 0 %}
+      <tr id="row_out"><td>
+        {{key}}
+      </td></tr>
+      {% endif %}
+      {% endfor %}
+      
+    </tbody>
+  </table>
+  {% endif%}
+</div>
+</div>
+
+
+
+
+
+
+
+{%endblock%}
