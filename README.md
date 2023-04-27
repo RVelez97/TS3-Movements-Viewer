@@ -10,4 +10,4 @@ room to consult, the date and the range of time, and you will receive the moveme
 - Create a virtual environment writing the next command at the terminal 'python -m venv virtual-environment-name'
 - Write the next command 'venv\Scripts\activate'
 - And finally this command 'py manage.py runserver'
-- Next go to your browser and write 127.0.0.1/8000 
+- Next go to your browser and write 127.0.0.1:8000 
