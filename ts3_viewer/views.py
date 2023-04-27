@@ -19,7 +19,16 @@ def index(request):
 
 
 
+"""
+This function returns the data that  will be shown at the result's page
 
+Args:
+file_url(str)
+language(str)
+
+Returns:
+dictionary with the list of registers, list of dates, the hours and minutes 
+"""
 def dataCollector(file_url,language):
     lines_cleaned=[]
     daySeparator=''
